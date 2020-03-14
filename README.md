@@ -89,5 +89,10 @@ cd /usr/lib/node_modules/node-red/
 node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" suasenha
 ```
 
+Se o node-red precisar ouvir portas que somente o root pode, como porta 80, o comando abaixo cria uma permissão para o aplicativo do node poder acessá-las.
+```
+sudo setcap 'cap_net_bind_service=+ep'  $(eval readlink -f `which node`)
+```
+
 E voi lá!
 Execute um `node-red-restart` para assumir a credencial de acesso.
