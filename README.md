@@ -26,9 +26,9 @@ As vezes até realiza um check disk, então pode demorar alguns minutos pra inic
 
 1. Encontrar o IP do RPI via DHCP
 2. Conectar via SSH 22 usando usuario pi e senha raspberry
-3. Trocar a senha do usuario pi para <senha pi>
-4. Ativador SSH via `sudo raspi-config` no menu Interfacing / SSH / Yes / Ok e senha [<senha pi>] / Finish
-5. Alterar porta SSH de 22 para 50022 / Reboot via `sudo nano /etc/ssh/sshd_config`
+3. Trocar a senha do usuario pi para SENHAPI
+4. Ativador SSH via `sudo raspi-config` no menu Interfacing / SSH / Yes / Ok e senha SENHAPI / Finish
+5. Alterar porta SSH de 22 para XXXXX / Reboot via `sudo nano /etc/ssh/sshd_config`
 
 ## Instalação padrão
 
@@ -58,5 +58,36 @@ crontab -e
 0	*/6	*	*   *  root	/usr/local/bin/noip2
 ```
 
+### Node-Red
 
-  
+Copiando aqui o processo do Get Started de nodered.org
+
+Para instalar, usar o comando:
+`bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)`
+
+Depois, executar `node-red-start` para validar se está tudo ok
+
+Para inserir credenciais de segurança, executar:
+
+`nano /home/pi/.node-red/settings.js`
+
+E inserir as linhas abaixo no local do exemplo
+```
+adminAuth: {
+    type: "credentials",
+    users: [{
+        username: "admin",
+        password: "$2a$08$o5rtBPstCMpw1sfzxyEdjdHco5rtBpxADP75krc3UxFpw1sfo5rtBoy",
+        permissions: "*"
+    }]
+},
+```
+
+A password acima é gerada pelo comando:
+```
+cd /usr/lib/node_modules/node-red/
+node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" suasenha
+```
+
+E voi lá!
+Execute um `node-red-restart` para assumir a credencial de acesso.
