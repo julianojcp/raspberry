@@ -96,3 +96,12 @@ sudo setcap 'cap_net_bind_service=+ep'  $(eval readlink -f `which node`)
 
 E voi lá!
 Execute um `node-red-restart` para assumir a credencial de acesso.
+
+### Pi hole
+
+O pi hole funciona como um cache dns e bloqueador de anúncios para toda a rede.
+Instalação simples e funcional pelo guia oferecido no site oficial.
+
+Após instalar e a primeira configuração,  basta definir para que o roteador DHCP da rede i forme o IP deste rapsberry como servidor de Dns primário.
+
+Os dashboads são bem informativos!
